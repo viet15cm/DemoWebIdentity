@@ -1,0 +1,42 @@
+﻿@page "/admin/user-role"
+@model IndexModel
+@{
+    ViewData["Title"] = "Danh Sách Các Users";
+}
+<h2>@ViewData["Title"]</h2>
+
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-dark table-striped">
+            <tr>
+                <th>Tên</th>
+                <th>Vai trò (role)</th>
+                <th>Lựa chọn</th>
+            </tr>
+            @foreach (var item in Model.users)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    <td>
+                        @if (string.IsNullOrEmpty(item.RoleName))
+                        {
+                            <a class="text-danger" asp-page="./AddRole" asp-route-id="@item.Id"><i class="fas fa-plus"></i> Them role </a>
+                        }
+                        else
+                        {
+                            <a class="text-danger" asp-page="./AddRole" asp-route-id="@item.Id"><i class="fas fa-plus"></i> @item.RoleName </a>
+                         
+                        }
+
+                    </td>
+                    <td>
+                        <a class="btn btn-success" asp-page="./SetPassword" asp-route-id="@item.Id" >Đặt mật khẩu</a>                      
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</div>
